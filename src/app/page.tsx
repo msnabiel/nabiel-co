@@ -19,7 +19,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white text-neutral-800">
       {/* Hero Section */}
 <section className="py-20 text-center px-6 max-w-3xl mx-auto">
-  <h1 className="text-5xl font-bold mb-4">Breathe In Calm.</h1>
+  <h1 className="text-5xl font-bold mb-4">Nabiel & Co.</h1>
   <p className="text-xl mb-6 text-muted-foreground">
     Hand-poured scented candles made with love and natural ingredients.
   </p>
@@ -54,7 +54,7 @@ export default function Home() {
 </section>
 
 
-<section className="py-16 px-6 max-w-4xl mx-auto text-center">
+<section className="pt-0 pb-16 sm:pt-0 px-4 sm:px-6 max-w-5xl mx-auto text-center">
   <h2 className="text-3xl font-semibold mb-4">Crafted with Care</h2>
   <p className="text-muted-foreground mb-8">
     Each candle is hand-poured in small batches using eco-friendly soy wax,
