@@ -114,38 +114,20 @@ export default function Home() {
 </section>
 
 
-      {/* Contact Form */}
       <section id="contact" className="py-16 px-4 max-w-xl mx-auto">
-        <h2 className="text-3xl font-semibold mb-4 text-center">Get in Touch</h2>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            alert("Form submitted! (not wired up)")
-          }}
-          className="space-y-4"
-        >
-          <Input
-            placeholder="Your Name"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            required
-          />
-          <Input
-            type="email"
-            placeholder="Your Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            required
-          />
-          <Textarea
-            placeholder="Your Message"
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
-            required
-          />
-          <Button type="submit">Send Message</Button>
-        </form>
-      </section>
+  <h2 className="text-3xl font-semibold mb-4 text-center">Get in Touch</h2>
+  <form
+    action="https://formspree.io/f/xpwrvqyg" // ⬅️ replace with your actual ID
+    method="POST"
+    className="space-y-4"
+  >
+    <Input name="name" placeholder="Your Name" required />
+    <Input type="email" name="email" placeholder="Your Email" required />
+    <Textarea name="message" placeholder="Your Message" required />
+    <Button type="submit">Send Message</Button>
+  </form>
+</section>
+
 
       <footer className="text-center text-sm text-muted-foreground py-6 border-t">
   <p>© {new Date().getFullYear()} Nabiel & Co. All rights reserved.</p>
