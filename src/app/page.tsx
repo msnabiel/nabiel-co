@@ -107,7 +107,7 @@ export default function Home() {
         rel="noopener noreferrer"
         className="underline text-blue-600 hover:text-blue-800"
       >
-        @nabielcandles
+        @nabielco
       </a>
     </p>
   </div>
