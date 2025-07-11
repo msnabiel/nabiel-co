@@ -24,9 +24,18 @@ export default function Home() {
     Hand-poured scented candles made with love and natural ingredients.
   </p>
   <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-  <Button className="text-lg px-6 py-2" disabled>
+  {/*<Button className="text-lg px-6 py-2" disabled>
     🚧 Shop Coming Soon
-  </Button>
+  </Button>*/}
+  <a
+    href="/shop"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Button variant="default" className="text-lg px-6 py-2">
+      Shop Now
+    </Button>
+  </a>
 
   <Button
     variant="outline"
