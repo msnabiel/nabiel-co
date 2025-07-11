@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import NavBar from "@/components/nav-bar";
+import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner"
+import Script from "next/script" // For Razorpay integration
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,7 +30,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        {/* ✅ 2. Razorpay Script (defer by default) */}
+        <Script
+          src="https://checkout.razorpay.com/v1/checkout.js"
+          strategy="afterInteractive"
+        />
+        <NavBar /> 
+        <Toaster />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -11,7 +11,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
-
+import { CandlestickChart, CandlestickChartIcon } from "lucide-react"
+import ProductGrid from "@/components/product-grid"
 export default function Home() {
   const [form, setForm] = useState({ name: "", email: "", message: "" })
 
@@ -38,32 +39,7 @@ export default function Home() {
 </section>
 
 
-      {/* Products */}
-      <section className="py-12 px-4 max-w-5xl mx-auto">
-        <h2 className="text-3xl font-semibold mb-6 text-center">Best Sellers</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { name: "Lavender Bliss", price: "₹399" },
-            { name: "Vanilla Drift", price: "₹349" },
-            { name: "Citrus Bloom", price: "₹379" },
-          ].map((item, idx) => (
-            <Card key={idx}>
-              <CardHeader>
-                <CardTitle>{item.name}</CardTitle>
-                <CardDescription>Soothing & natural</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <img
-                  src={`https://source.unsplash.com/400x300/?candle,${item.name}`}
-                  alt={item.name}
-                  className="rounded-xl mb-4"
-                />
-                <p className="text-lg font-medium">{item.price}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
+<ProductGrid />
 
      {/* About Section */}
 <section className="py-20 px-6 text-center max-w-3xl mx-auto">

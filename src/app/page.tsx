@@ -19,7 +19,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white text-neutral-800">
       {/* Hero Section */}
 <section className="py-20 text-center px-6 max-w-3xl mx-auto">
-  <h1 className="text-5xl font-bold mb-4">Nabiel & Co.</h1>
+  <h1 className="text-5xl font-bold mb-4">Breathe In Calm.</h1>
   <p className="text-xl mb-6 text-muted-foreground">
     Hand-poured scented candles made with love and natural ingredients.
   </p>
@@ -127,7 +127,7 @@ export default function Home() {
     <Button type="submit">Send Message</Button>
   </form>
 </section>
-
+{/*
 
       <footer className="text-center text-sm text-muted-foreground py-6 border-t">
   <p>© {new Date().getFullYear()} Nabiel & Co. All rights reserved.</p>
@@ -140,7 +140,7 @@ export default function Home() {
     📄 Download Our Product Brochure
   </a>
 </footer>
-
+*/}
     </div>
   )
 }
