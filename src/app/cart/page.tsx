@@ -69,9 +69,14 @@ const updateQuantity = (id: number, quantity: number) => {
       <h1 className="text-3xl md:text-4xl font-bold mb-8 text-center">🛒 Your Cart</h1>
 
       {cart.length === 0 ? (
-        <p className="text-center text-muted-foreground text-sm">
-          Your cart is empty. Start exploring our candles 🕯️
-        </p>
+  <div className="flex flex-col items-center justify-center text-center space-y-4 min-h-[300px]">
+    <p className="text-muted-foreground text-sm">
+      Your cart is empty. Start exploring our candles 🕯️
+    </p>
+    <Button asChild>
+      <a href="/shop">Shop Now</a>
+    </Button>
+  </div>
       ) : (
         <div className="space-y-6 max-w-3xl mx-auto">
           {cart.map((item) => (
