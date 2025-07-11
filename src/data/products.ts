@@ -6,7 +6,7 @@ export type Product = {
   slug: string
   price: number
   description?: string
-  image?: string
+  images?: string[] // ✅ array of image URLs
 }
 
 export const products: Product[] = [
@@ -16,14 +16,14 @@ export const products: Product[] = [
     slug: "lavender-calm",
     price: 299,
     description: "Soothing lavender for peaceful vibes.",
-    image: "/logo.png",
+    images: ["/logo.png"],
   },
   {
     id: 2,
     name: "Vanilla Dream",
     slug: "vanilla-dream",
     price: 349,
-    image: "/products/vanilla.jpg",
+    images: ["/logo.png"],
   },
   // Add more products here...
 ]

@@ -1,162 +1,197 @@
-// app/product/[slug]/page.tsx
+"use client"
+
+import { useState } from "react"
 import { products } from "@/data/products"
-import { AlertTriangle, ArrowLeft, ShoppingCart, Heart } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { use } from "react"
+
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select"
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/ui/accordion"
+import { ShoppingCart, Heart } from "lucide-react"
+import { toast } from "sonner"
 
 interface ProductPageProps {
-  params: Promise<{
-    slug: string
-  }>
+  params: { slug: string }
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-  const { slug } = await params
-  const product = products.find((p) => p.slug === slug)
-  
+export default function ProductPage({ params }: ProductPageProps) {
+  const product = products.find((p) => p.slug === params.slug)
+  const related = products.filter((p) => p.slug !== params.slug).slice(0, 2)
+  const [quantity, setQuantity] = useState(1)
+
   if (!product) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 sm:px-6 bg-gradient-to-br from-amber-50 to-orange-50">
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
-          <AlertTriangle className="w-16 h-16 text-red-500 mx-auto mb-6" />
-          <h1 className="text-2xl sm:text-3xl font-bold mb-3 text-gray-900">Product Not Found</h1>
-          <p className="text-gray-600 mb-6 text-sm sm:text-base">
-            Oops! We couldn't find the candle you're looking for.
-          </p>
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg hover:from-amber-600 hover:to-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl font-medium"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Browse More Candles
-          </Link>
-        </div>
+      <div className="p-6 text-center">
+        <h1 className="text-xl font-semibold">Product not found</h1>
+        <Link href="/" className="text-blue-500 underline">
+          ← Back to shop
+        </Link>
       </div>
     )
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
-      {/* Header with back button */}
-      <div className="sticky top-0 z-0 bg-transparent backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3">
-          <Link
-            href="/shop"
-            className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 transition-colors duration-200 font-medium"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Shop
-          </Link>
+    <div className="max-w-6xl mx-auto p-4 sm:p-6">
+      <div className="grid md:grid-cols-2 gap-10">
+        {/* Image Gallery */}
+        <div className="space-y-4">
+          {product.images?.map((img, i) => (
+            <Image
+              key={i}
+              src={img}
+              alt={product.name}
+              width={600}
+              height={600}
+              className="rounded-lg border w-full max-w-[500px] mx-auto"
+            />
+          ))}
         </div>
-      </div>
 
-      {/* Main content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-          {/* Image Section */}
-          <div className="space-y-4">
-            <div className="relative w-full aspect-square bg-white rounded-2xl overflow-hidden shadow-2xl group">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Product Info */}
+        <div className="space-y-6">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-bold">{product.name}</h1>
+            <div className="flex items-center gap-2 text-sm text-yellow-500">
+              {"★".repeat(4)}{"☆"}{" "}
+              <span className="text-muted-foreground ml-1">(142 reviews)</span>
             </div>
             
-            {/* Thumbnail gallery placeholder - you can add multiple images later */}
-            <div className="hidden sm:flex gap-3">
-              <div className="w-20 h-20 bg-white rounded-lg shadow-md overflow-hidden border-2 border-amber-200">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              {/* Add more thumbnails here if you have multiple product images */}
-            </div>
+            <p className="text-muted-foreground mt-2">{product.description}</p>
+            <p className="text-2xl font-semibold mt-4">₹{product.price}</p>
           </div>
 
-          {/* Details Section */}
-          <div className="space-y-6">
-            {/* Product Info */}
-            <div className="space-y-4">
-              <div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                  {product.name}
-                </h1>
-                <div className="flex items-center gap-4 mt-3">
-                  <span className="text-2xl sm:text-3xl font-bold text-amber-600">
-                    ₹{product.price}
-                  </span>
-                  <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                    In Stock
-                  </span>
-                </div>
-              </div>
-              
-              <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
-                {product.description ||
-                  "This candle is crafted with love and natural ingredients to bring calm and comfort to your space. Perfect for creating a cozy atmosphere in any room."}
-              </p>
-            </div>
+          {/* Scent Selector */}
+          <div>
+            <label className="block text-sm mb-1 font-medium">Choose Scent</label>
+            <Select>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Select scent" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="vanilla">Vanilla</SelectItem>
+                <SelectItem value="lavender">Lavender</SelectItem>
+                <SelectItem value="rose">Rose</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-            {/* Features */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-amber-100">
-              <h3 className="font-semibold text-gray-900 mb-4">Product Features</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                  <span className="text-gray-600">Natural Soy Wax</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                  <span className="text-gray-600">40+ Hour Burn Time</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                  <span className="text-gray-600">Hand-Poured</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                  <span className="text-gray-600">Eco-Friendly</span>
-                </div>
-              </div>
-            </div>
+          {/* Quantity Selector */}
+          <div className="flex items-center gap-3">
+            <label className="text-sm font-medium">Quantity:</label>
+            <input
+              type="number"
+              min={1}
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+              className="w-16 px-2 py-1 border rounded"
+            />
+          </div>
 
-            {/* Quantity and Add to Cart */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-4">
-                <label className="text-sm font-medium text-gray-700">Quantity:</label>
-                <div className="flex items-center border border-gray-300 rounded-lg">
-                  <button className="px-3 py-2 hover:bg-gray-100 transition-colors">-</button>
-                  <span className="px-4 py-2 border-x border-gray-300">1</span>
-                  <button className="px-3 py-2 hover:bg-gray-100 transition-colors">+</button>
-                </div>
-              </div>
+          {/* Buttons */}
+          <div className="flex gap-3">
+            <Button
+  className="flex gap-2"
+  onClick={() => {
+    // Add to cart logic here
+    toast("Added to cart!")
+  }}
+>
+  <ShoppingCart size={18} />
+  Add to Cart
+</Button>
+            <Button variant="outline" className="flex gap-2">
+              <Heart size={18} />
+              Wishlist
+            </Button>
+          </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button className="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-6 py-4 rounded-xl font-semibold hover:from-amber-600 hover:to-orange-600 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
-                  <ShoppingCart className="w-5 h-5" />
-                  Add to Cart
-                </button>
-                <button className="sm:w-auto w-full bg-white text-amber-600 border-2 border-amber-200 px-6 py-4 rounded-xl font-semibold hover:bg-amber-50 transition-all duration-200 flex items-center justify-center gap-2">
-                  <Heart className="w-5 h-5" />
-                  <span className="sm:hidden">Add to Wishlist</span>
-                </button>
-              </div>
-            </div>
+          {/* Share */}
+          <div className="text-sm text-muted-foreground pt-2">
+            Share:{" "}
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(
+                `Check out this candle: ${product.name} - ${
+                  typeof window !== "undefined" ? window.location.href : ""
+                }`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600"
+            >
+              WhatsApp
+            </a>
+          </div>
 
-            {/* Additional Info */}
-            <div className="bg-amber-50 rounded-xl p-6 border border-amber-200">
-              <h3 className="font-semibold text-gray-900 mb-2">Care Instructions</h3>
-              <p className="text-sm text-gray-600 leading-relaxed">
-                Trim wick to 1/4" before each use. Allow wax to pool to edges for even burning. 
-                Never leave unattended. Keep away from children and pets.
-              </p>
-            </div>
+          {/* FAQ */}
+          <div>
+            <h2 className="text-lg font-semibold mt-6 mb-2">Product FAQs</h2>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="burn">
+                <AccordionTrigger>How long does it burn?</AccordionTrigger>
+                <AccordionContent>
+                  Around 20–25 hours depending on use.
+                </AccordionContent>
+              </AccordionItem>
+              <AccordionItem value="refill">
+                <AccordionTrigger>Is it refillable?</AccordionTrigger>
+                <AccordionContent>
+                  Yes, the jar is eco-friendly and reusable.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </div>
       </div>
-    </main>
+
+      {/* Related Products */}
+      <div className="mt-16">
+        <h2 className="text-2xl font-semibold mb-4">You may also like</h2>
+        <div className="overflow-x-auto">
+          <div className="flex gap-4 sm:grid sm:grid-cols-2">
+            {related.map((p) => (
+              <Link
+                key={p.id}
+                href={`/product/${p.slug}`}
+                className="w-full max-w-[140px] border rounded-lg p-2 hover:shadow transition bg-white shrink-0"
+              >
+<div className="w-[100px] h-[100px] mx-auto relative">
+  <Image
+    src={p.images?.[0] || "/placeholder.jpg"}
+    alt={p.name}
+    fill
+    className="object-cover rounded-md"
+  />
+</div>
+
+
+                <p className="mt-2 text-sm font-medium text-center">{p.name}</p>
+                <p className="text-xs text-muted-foreground text-center">₹{p.price}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Sticky Mobile Add to Cart */}
+      <div className="fixed bottom-0 inset-x-0 bg-white border-t p-4 sm:hidden flex justify-between z-50">
+        <Button className="w-full flex-1">
+          <ShoppingCart size={18} />
+          Add to Cart
+        </Button>
+      </div>
+    </div>
   )
 }

@@ -85,7 +85,7 @@ export default function ShopPage() {
         ) : (
           <img
             src={
-              product.image ||
+              product.images?.[0] ||
               `https://source.unsplash.com/400x300/?candle,${product.name}`
             }
             alt={product.name}
