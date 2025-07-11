@@ -63,6 +63,7 @@ const { addToCart } = useCart()
 
           {/* Scent and Quantity Selectors - Side by Side */}
           <div className="grid grid-cols-2 gap-3">
+            {/* 
             <div>
               <label className="block text-sm mb-1 font-medium">Scent</label>
               <Select>
@@ -75,7 +76,7 @@ const { addToCart } = useCart()
                   <SelectItem value="rose">Rose</SelectItem>
                 </SelectContent>
               </Select>
-            </div>
+            </div>*/}
 
             <div>
               <label className="block text-sm mb-1 font-medium">Quantity</label>
