@@ -2,14 +2,16 @@
 import { products } from "@/data/products"
 import { AlertTriangle, ArrowLeft, ShoppingCart, Heart } from "lucide-react"
 import Link from "next/link"
+
 interface ProductPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const product = products.find((p) => p.slug === params.slug)
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await params
+  const product = products.find((p) => p.slug === slug)
   
   if (!product) {
     return (
@@ -36,7 +38,6 @@ export default function ProductPage({ params }: ProductPageProps) {
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
       {/* Header with back button */}
       <div className="sticky top-0 z-0 bg-transparent backdrop-blur-sm">
-
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3">
           <Link
             href="/shop"
