@@ -28,10 +28,10 @@ const handleSubmit = async () => {
   return (
 <section className="bg-amber-50 rounded-2xl shadow-md max-w-xl mx-auto my-12 px-4 py-6 sm:px-6">
   <h2 className="text-2xl font-semibold mb-2 text-center">
-    📧 Join Our Candle Club
+    📧 Subscribe for 10% Off
   </h2>
   <p className="text-sm text-center mb-4 text-muted-foreground">
-    Sign up for updates, early launches & get <strong>10% off</strong> your first order!
+    Early access. New scents. Exclusive perks. All in your inbox.
   </p>
 
   <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">

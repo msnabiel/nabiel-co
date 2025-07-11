@@ -11,65 +11,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
-
+import Banner from "@/components/banner"
 export default function Home() {
   const [form, setForm] = useState({ name: "", email: "", message: "" })
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white text-neutral-800">
-      {/* Hero Section */}
-<section className="py-20 text-center px-6 max-w-3xl mx-auto">
-  <h1 className="text-5xl font-bold mb-4">Breathe In Calm.</h1>
-  <p className="text-xl mb-6 text-muted-foreground">
-    Hand-poured scented candles made with love and natural ingredients.
-  </p>
-  <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-  {/*<Button className="text-lg px-6 py-2" disabled>
-    🚧 Shop Coming Soon
-  </Button>*/}
-  <a
-    href="/shop"
-    rel="noopener noreferrer"
-  >
-    <Button variant="default" className="text-lg px-6 py-2">
-      Shop Now
-    </Button>
-  </a>
-    <a
-    href="/contact"
-    rel="noopener noreferrer"
-  >
-    <Button variant="outline" className="text-lg px-6 py-2">
-      📬 Contact Us
-    </Button>
-  </a>
-{/*
-  <Button
-    variant="outline"
-    className="text-lg px-6 py-2"
-    onClick={() => {
-      document
-        .getElementById("contact")
-        ?.scrollIntoView({ behavior: "smooth" })
-    }}
-  >
-    📬 Contact Us
-  </Button>
-  */}
-
-  <a
-    href="/Nabiel-Co-Brochure.pdf"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <Button variant="outline" className="text-lg px-6 py-2">
-      📄 View Brochure
-    </Button>
-  </a>
-</div>
-
-</section>
-
+      <Banner />
 
 <section className="pt-0 pb-16 sm:pt-0 px-4 sm:px-6 max-w-5xl mx-auto text-center">
   <h2 className="text-3xl font-semibold mb-4">Crafted with Care</h2>
@@ -106,10 +54,6 @@ export default function Home() {
 </section>
 {/* Newsletter Signup Section */}
 <section className="text-center my-0 px-4 sm:px-0">
-  <h2 className="text-3xl font-semibold mb-2">Stay in the Glow 🕯️</h2>
-  <p className="text-muted-foreground mb-6">
-    Subscribe for 10% off, new arrivals, and cozy inspiration.
-  </p>
   <NewsletterSignup />
 </section>
 
