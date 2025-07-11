@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Flame, ShoppingCart, SlidersHorizontal } from "lucide-react"
@@ -103,7 +104,7 @@ const handleAddToCart = (product: Product) => {
           size="sm"
           onClick={() => setSortOption(null)}
         >
-          Reset
+          <Trash2 className="w-4 h-4" />
         </Button>
       </div>
     </div>
