@@ -131,88 +131,23 @@ const handleAddToCart = (product: Product) => {
   </div>
 )}
 
-      {/* Product Grid - Mobile Optimized */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
-        {filteredProducts.map((product) => (
-          <Link key={product.id} href={`/product/${product.slug}`} className="group">
-            {/* Mobile: Horizontal Card Layout */}
-{/* Mobile: Compact Horizontal List */}
-<div className="sm:hidden divide-y divide-muted">
-  {filteredProducts.map((product) => (
-    <div
-      key={product.id}
-      className="flex items-center gap-3 py-3 cursor-pointer"
-      onClick={() => window.location.href = `/product/${product.slug}`}
-    >
-      {/* Image */}
-      <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
-        {imageError[product.id] ? (
-          <div className="flex items-center justify-center w-full h-full text-gray-400">
-            <Flame className="w-5 h-5" />
-          </div>
-        ) : (
-          <img
-            src={
-              product.images?.[0] ||
-              `https://source.unsplash.com/300x200/?candle,${product.name}`
-            }
-            alt={product.name}
-            className="w-full h-full object-cover"
-            onError={() =>
-              setImageError((prev) => ({ ...prev, [product.id]: true }))
-            }
-          />
-        )}
-      </div>
+      
 
-      {/* Text */}
-      <div className="flex-1 min-w-0">
-        <h3 className="font-medium text-sm truncate">{truncate(product.name, 35)}</h3>
-        <p className="text-xs text-muted-foreground line-clamp-2">
-  {product.description ?? "100% soy wax"}
-</p>
-        <p className="text-sm font-semibold mt-1">₹{product.price}</p>
-      </div>
-
-      {/* Cart Button */}
-      <Button
-        onClick={(e) => {
-          e.stopPropagation()
-          handleAddToCart(product)
-        }}
-        size="icon"
-        variant={addedProductId === product.id ? "default" : "outline"}
-        className={`h-8 w-8 ${
-          addedProductId === product.id ? "bg-black text-white" : ""
-        }`}
-        disabled={addedProductId === product.id}
-      >
-        {addedProductId === product.id ? (
-          <Flame className="w-4 h-4 animate-pulse" />
-        ) : (
-          <ShoppingCart className="w-4 h-4" />
-        )}
-      </Button>
-    </div>
-  ))}
-</div>
-
-
-
-            {/* Desktop: Vertical Card Layout */}
-            <Card className="hidden sm:flex flex-col justify-between cursor-pointer hover:shadow-sm transition text-sm h-[280px] md:h-[320px]">
-              <CardHeader className="pb-2 h-[60px] md:h-[72px] overflow-hidden">
-                <CardTitle className="text-sm md:text-base">
-                  {truncate(product.name, 30)}
-                </CardTitle>
-                <CardDescription className="text-xs text-muted-foreground">
-                  {truncate(product.description ?? "100% soy wax", 50)}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-col justify-between h-[160px] md:h-[180px]">
+{/* Product Grid - Mobile Optimized */}
+      <div className="max-w-6xl mx-auto">
+        {/* Mobile: Compact Horizontal List */}
+        <div className="sm:hidden divide-y divide-muted">
+          {filteredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="flex items-center gap-3 py-3 cursor-pointer"
+              onClick={() => window.location.href = `/product/${product.slug}`}
+            >
+              {/* Image */}
+              <div className="w-16 h-16 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
                 {imageError[product.id] ? (
-                  <div className="flex items-center justify-center h-[100px] md:h-[120px] bg-gray-100 rounded-md text-gray-400 mb-2">
-                    <Flame className="w-6 h-6" />
+                  <div className="flex items-center justify-center w-full h-full text-gray-400">
+                    <Flame className="w-5 h-5" />
                   </div>
                 ) : (
                   <img
@@ -221,45 +156,111 @@ const handleAddToCart = (product: Product) => {
                       `https://source.unsplash.com/300x200/?candle,${product.name}`
                     }
                     alt={product.name}
-                    className="rounded-md mb-2 object-contain w-full h-[100px] md:h-[120px]"
+                    className="w-full h-full object-cover"
                     onError={() =>
                       setImageError((prev) => ({ ...prev, [product.id]: true }))
                     }
                   />
                 )}
-                <div className="flex items-center justify-between">
-                  <p className="font-medium">₹{product.price}</p>
-                  <Button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handleAddToCart(product)
-                    }}
-                    size="sm"
-                    className={`text-xs transition-all duration-300 ${
-                      addedProductId === product.id ? "bg-black text-white" : ""
-                    }`}
-                    disabled={addedProductId === product.id}
-                  >
-                    {addedProductId === product.id ? (
-                      <>
-                        <Flame className="w-4 h-4 mr-1 animate-pulse" />
-                        Added
-                      </>
-                    ) : (
-                      <>
-                        <ShoppingCart className="w-4 h-4 mr-1" />
-                        Add
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
+              </div>
+
+              {/* Text */}
+              <div className="flex-1 min-w-0">
+                <h3 className="font-medium text-sm truncate">{truncate(product.name, 35)}</h3>
+                <p className="text-xs text-muted-foreground line-clamp-2">
+                  {product.description ?? "100% soy wax"}
+                </p>
+                <p className="text-sm font-semibold mt-1">₹{product.price}</p>
+              </div>
+
+              {/* Cart Button */}
+              <Button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  handleAddToCart(product)
+                }}
+                size="icon"
+                variant={addedProductId === product.id ? "default" : "outline"}
+                className={`h-8 w-8 ${
+                  addedProductId === product.id ? "bg-black text-white" : ""
+                }`}
+                disabled={addedProductId === product.id}
+              >
+                {addedProductId === product.id ? (
+                  <Flame className="w-4 h-4 animate-pulse" />
+                ) : (
+                  <ShoppingCart className="w-4 h-4" />
+                )}
+              </Button>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop: Grid Layout */}
+        <div className="hidden sm:grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+          {filteredProducts.map((product) => (
+            <Link key={product.id} href={`/product/${product.slug}`} className="group">
+              <Card className="flex flex-col justify-between cursor-pointer hover:shadow-sm transition text-sm h-[280px] md:h-[320px]">
+                <CardHeader className="pb-2 h-[60px] md:h-[72px] overflow-hidden">
+                  <CardTitle className="text-sm md:text-base">
+                    {truncate(product.name, 30)}
+                  </CardTitle>
+                  <CardDescription className="text-xs text-muted-foreground">
+                    {truncate(product.description ?? "100% soy wax", 50)}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-col justify-between h-[160px] md:h-[180px]">
+                  {imageError[product.id] ? (
+                    <div className="flex items-center justify-center h-[100px] md:h-[120px] bg-gray-100 rounded-md text-gray-400 mb-2">
+                      <Flame className="w-6 h-6" />
+                    </div>
+                  ) : (
+                    <img
+                      src={
+                        product.images?.[0] ||
+                        `https://source.unsplash.com/300x200/?candle,${product.name}`
+                      }
+                      alt={product.name}
+                      className="rounded-md mb-2 object-contain w-full h-[100px] md:h-[120px]"
+                      onError={() =>
+                        setImageError((prev) => ({ ...prev, [product.id]: true }))
+                      }
+                    />
+                  )}
+                  <div className="flex items-center justify-between">
+                    <p className="font-medium">₹{product.price}</p>
+                    <Button
+                      onClick={(e) => {
+                        e.preventDefault()
+                        handleAddToCart(product)
+                      }}
+                      size="sm"
+                      className={`text-xs transition-all duration-300 ${
+                        addedProductId === product.id ? "bg-black text-white" : ""
+                      }`}
+                      disabled={addedProductId === product.id}
+                    >
+                      {addedProductId === product.id ? (
+                        <>
+                          <Flame className="w-4 h-4 mr-1 animate-pulse" />
+                          Added
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          Add
+                        </>
+                      )}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+        </div>
 
         {filteredProducts.length === 0 && (
-          <div className="col-span-full text-center text-muted-foreground py-12">
+          <div className="text-center text-muted-foreground py-12">
             No candles found matching your search.
           </div>
         )}
