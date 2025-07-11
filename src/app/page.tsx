@@ -35,7 +35,15 @@ export default function Home() {
       Shop Now
     </Button>
   </a>
-
+    <a
+    href="/contact"
+    rel="noopener noreferrer"
+  >
+    <Button variant="outline" className="text-lg px-6 py-2">
+      📬 Contact Us
+    </Button>
+  </a>
+{/*
   <Button
     variant="outline"
     className="text-lg px-6 py-2"
@@ -47,6 +55,7 @@ export default function Home() {
   >
     📬 Contact Us
   </Button>
+  */}
 
   <a
     href="/Nabiel-Co-Brochure.pdf"

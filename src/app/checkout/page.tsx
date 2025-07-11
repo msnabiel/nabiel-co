@@ -188,7 +188,7 @@ const handleCheckout = async () => {
   {/* Razorpay dynamic buy button */}
   <Button
     disabled={cart.length === 0}
-    onClick={handleNotImplemented}
+    onClick={handleBuyNow}
     className="w-full bg-amber-500 hover:bg-amber-600 text-white"
   >
     Buy Now with Razorpay
@@ -198,7 +198,7 @@ const handleCheckout = async () => {
   <Button
     disabled={cart.length === 0}
     variant="outline"
-    onClick={handleNotImplemented}
+    onClick={handleBuyNow}
     className="w-full"
   >
     Place Order (COD / Email Only)

@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
 };
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,16 +30,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`flex min-h-screen flex-col ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* ✅ 2. Razorpay Script (defer by default) */}
+        {/* ✅ Razorpay Script */}
         <Script
           src="https://checkout.razorpay.com/v1/checkout.js"
           strategy="afterInteractive"
         />
-        <NavBar /> 
+        
+        <NavBar />
         <Toaster />
-        {children}
+
+        {/* ✅ Main content expands to push footer down */}
+        <main className="flex-1">{children}</main>
+
         <Footer />
       </body>
     </html>
