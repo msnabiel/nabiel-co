@@ -2,8 +2,13 @@
 import { products } from "@/data/products"
 import { AlertTriangle, ArrowLeft, ShoppingCart, Heart } from "lucide-react"
 import Link from "next/link"
+interface ProductPageProps {
+  params: {
+    slug: string
+  }
+}
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
+export default function ProductPage({ params }: ProductPageProps) {
   const product = products.find((p) => p.slug === params.slug)
   
   if (!product) {
