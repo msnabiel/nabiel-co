@@ -19,10 +19,11 @@ export default function NavBar() {
   }, [])
 
   const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Shop", href: "/shop" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+  { name: "Home", href: "/" },
+  { name: "Shop", href: "/shop" },
+  { name: "Orders", href: "/track-order" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
   ]
 
   return (

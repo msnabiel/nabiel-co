@@ -111,7 +111,7 @@ export default function Home() {
     Subscribe for 10% off, new arrivals, and cozy inspiration.
   </p>
   <NewsletterSignup />
-</section>
+</section>  
 
 
 
