@@ -36,19 +36,26 @@ export default function CartPage() {
 
   // Save cart changes
   useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem("cart", JSON.stringify(cart))
-    }
-  }, [cart, isLoaded])
-
-  const updateQuantity = (id: number, quantity: number) => {
-    if (quantity < 1) return
-    setCart((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity } : item
-      )
-    )
+  if (isLoaded) {
+    const cleanedCart = cart.map((item) => ({
+      ...item,
+      quantity: item.quantity < 1 ? 1 : item.quantity,
+    }))
+    localStorage.setItem("cart", JSON.stringify(cleanedCart))
   }
+}, [cart, isLoaded])
+
+const updateQuantity = (id: number, quantity: number) => {
+  setCart((prev) =>
+    prev.map((item) =>
+      item.id === id
+        ? { ...item, quantity } // allow 0 temporarily
+        : item
+    )
+  )
+}
+
+
 
   const removeItem = (id: number) => {
     setCart((prev) => prev.filter((item) => item.id !== id))
@@ -81,15 +88,29 @@ export default function CartPage() {
               </div>
 
               {/* Quantity Input */}
-              <Input
-                type="number"
-                min={1}
-                value={item.quantity}
-                onChange={(e) =>
-                  updateQuantity(item.id, Number(e.target.value))
-                }
-                className="w-20"
-              />
+<Input
+  type="number"
+  min={1}
+  value={item.quantity === 0 ? "" : item.quantity}
+  onChange={(e) => {
+    const value = e.target.value
+    if (value === "") {
+      updateQuantity(item.id, 0)
+      return
+    }
+    const quantity = Number(value)
+    if (!isNaN(quantity)) {
+      updateQuantity(item.id, quantity)
+    }
+  }}
+  onKeyDown={(e) => {
+    if (["e", "E", "+", "-", "."].includes(e.key)) {
+      e.preventDefault()
+    }
+  }}
+  className="w-20"
+/>
+
 
               {/* Remove Button */}
               <Button
