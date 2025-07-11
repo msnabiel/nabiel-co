@@ -63,7 +63,7 @@ export default function TermsPage() {
 
         <h2 className="text-xl font-semibold">10. Contact Us</h2>
         <p>
-          For any questions or concerns, please contact us at <a href="mailto:hello@nabielandco.com" className="text-amber-600 hover:underline">hello@nabielandco.com</a>.
+          For any questions or concerns, please contact us at <a href="mailto:info.nabielco@gmail.com" className="text-amber-600 hover:underline">info.nabielco@gmail.com</a>.
         </p>
       </section>
     </main>

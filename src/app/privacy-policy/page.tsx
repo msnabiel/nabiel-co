@@ -47,7 +47,7 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-xl font-semibold">6. Your Rights</h2>
         <p>
-          You have the right to access, update, or delete your personal information. To do so, please contact us at <a href="mailto:hello@nabielandco.com" className="text-amber-600 hover:underline">hello@nabielandco.com</a>.
+          You have the right to access, update, or delete your personal information. To do so, please contact us at <a href="mailto:info.nabielco@gmail.com" className="text-amber-600 hover:underline">info.nabielco@gmail.com</a>.
         </p>
 
         <h2 className="text-xl font-semibold">7. Changes to This Policy</h2>
