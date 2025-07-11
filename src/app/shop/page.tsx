@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Flame, ShoppingCart, SlidersHorizontal } from "lucide-react"
 import { products as PRODUCTS } from "@/data/products"
 import { useCart } from "@/lib/hooks/useCart"
+import type { Product } from "@/data/products"
 
 export default function ShopPage() {
   const [imageError, setImageError] = useState<Record<number, boolean>>({})
@@ -23,6 +24,15 @@ export default function ShopPage() {
   const [maxPrice, setMaxPrice] = useState<number | null>(null)
 
   const { addToCart } = useCart()
+const [addedProductId, setAddedProductId] = useState<number | null>(null)
+
+const handleAddToCart = (product: Product) => {
+  addToCart(product)
+  setAddedProductId(product.id)
+  setTimeout(() => {
+    setAddedProductId(null)
+  }, 1000) // show animation for 1 sec
+}
 
   function truncate(text: string, maxLength: number) {
     if (!text) return ""
@@ -111,7 +121,7 @@ export default function ShopPage() {
         }}
       />
       <Button
-        variant="ghost"
+        variant="destructive"
         size="sm"
         onClick={() => setMaxPrice(null)}
       >
@@ -156,16 +166,29 @@ export default function ShopPage() {
                 <div className="flex items-center justify-between">
                   <p className="font-medium">₹{product.price}</p>
                   <Button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      addToCart(product)
-                    }}
-                    size="sm"
-                    className="text-xs"
-                  >
-                    <ShoppingCart className="w-4 h-4 mr-1" />
-                    Add
-                  </Button>
+  onClick={(e) => {
+    e.preventDefault()
+    handleAddToCart(product)
+  }}
+  size="sm"
+  className={`text-xs transition-all duration-300 ${
+    addedProductId === product.id ? "bg-black text-white" : ""
+  }`}
+  disabled={addedProductId === product.id}
+>
+  {addedProductId === product.id ? (
+    <>
+      <Flame className="w-4 h-4 mr-1 animate-pulse" />
+      Added
+    </>
+  ) : (
+    <>
+      <ShoppingCart className="w-4 h-4 mr-1" />
+      Add
+    </>
+  )}
+</Button>
+
                 </div>
               </CardContent>
             </Card>
