@@ -18,6 +18,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Nabiel & Co",
   description: "Scented candles crafted with care",
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
+import { sendConfirmationEmail } from "@/lib/sendConfirmationEmail"
 
 type CartItem = {
   id: number
@@ -20,6 +21,7 @@ export default function CheckoutPage() {
     address: "",
     city: "",
     zip: "",
+    phone: "", 
   })
 
   // Load cart
@@ -75,6 +77,7 @@ export default function CheckoutPage() {
     prefill: {
       name: form.name,
       email: form.email,
+      contact: form.phone || undefined, // only if provided
     },
     theme: { color: "#f59e0b" },
   }
@@ -91,28 +94,21 @@ const handleCheckout = async () => {
   }
 
   try {
-    await fetch("/api/send-email", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        address: form.address,
-        city: form.city,
-        zip: form.zip,
-        cart,
-        total,
-      }),
+    await sendConfirmationEmail({
+      ...form,
+      cart,
+      total,
     })
 
     toast.success("Order placed and email sent!")
     localStorage.removeItem("cart")
     setCart([])
-    setForm({ name: "", email: "", address: "", city: "", zip: "" })
+    setForm({ name: "", email: "", address: "", city: "", zip: "", phone: "" })
   } catch (err) {
     toast.error("Failed to send confirmation email.")
   }
 }
+
 
 
   return (
@@ -136,6 +132,12 @@ const handleCheckout = async () => {
             value={form.email}
             onChange={handleChange}
           />
+            <Input
+            placeholder="Phone Number (optional)"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            />
           <Input
             placeholder="Shipping Address"
             name="address"

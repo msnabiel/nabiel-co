@@ -1,5 +1,5 @@
 "use client"
-
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import {
   Card,
@@ -11,31 +11,15 @@ import {
 import { Button } from "@/components/ui/button"
 import { Flame, ShoppingCart } from "lucide-react"
 import { toast } from "sonner"
+import { products as PRODUCTS } from "@/data/products" // ✅ shared import
 
-type Product = {
-  id: number
-  name: string
-  price: number
-  tag: string
-}
-
-type CartItem = Product & { quantity: number }
-
-const PRODUCTS: Product[] = [
-  { id: 1, name: "Aura Candles", price: 399, tag: "Relaxing" },
-  { id: 2, name: "Zen Candles", price: 349, tag: "Sweet" },
-  { id: 3, name: "Citrus Bloom", price: 379, tag: "Fresh" },
-  { id: 4, name: "Ocean Breeze", price: 359, tag: "Cool" },
-  { id: 5, name: "Cinnamon Spice", price: 399, tag: "Warm" },
-  { id: 6, name: "Rose Garden", price: 369, tag: "Floral" },
-]
+type CartItem = typeof PRODUCTS[number] & { quantity: number }
 
 export default function ShopPage() {
   const [imageError, setImageError] = useState<Record<number, boolean>>({})
   const [cart, setCart] = useState<CartItem[]>([])
-  const [isLoaded, setIsLoaded] = useState(false) // Track if cart has been loaded
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  // Load cart from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem("cart")
     if (stored) {
@@ -45,24 +29,20 @@ export default function ShopPage() {
           id: Number(item.id),
         }))
         setCart(parsed)
-        console.log("Loaded cart from localStorage:", parsed)
-      } catch (e) {
-        console.error("Invalid cart format", e)
+      } catch {
         localStorage.removeItem("cart")
       }
     }
-    setIsLoaded(true) // Mark as loaded even if no cart data
+    setIsLoaded(true)
   }, [])
 
-  // Save cart to localStorage only after it's been loaded and when it changes
   useEffect(() => {
     if (isLoaded) {
       localStorage.setItem("cart", JSON.stringify(cart))
-      console.log("Saved cart to localStorage:", cart)
     }
   }, [cart, isLoaded])
 
-  const addToCart = (product: Product) => {
+  const addToCart = (product: typeof PRODUCTS[number]) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id)
       if (existing) {
@@ -87,57 +67,51 @@ export default function ShopPage() {
         </p>
       </header>
 
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-        {PRODUCTS.map((product: Product) => (
-          <Card key={product.id} className="flex flex-col justify-between">
-            <CardHeader>
-              <CardTitle>{product.name}</CardTitle>
-              <CardDescription>{product.tag} • 100% soy wax</CardDescription>
-            </CardHeader>
-            <CardContent>
-              {imageError[product.id] ? (
-                <div className="flex items-center justify-center h-[200px] bg-gray-100 rounded-xl text-gray-400 mb-4">
-                  <Flame className="w-10 h-10" />
-                </div>
-              ) : (
-                <img
-                  src={`https://source.unsplash.com/400x300/?candle,${product.name}`}
-                  alt={product.name}
-                  className="rounded-xl mb-4"
-                  onError={() =>
-                    setImageError((prev) => ({ ...prev, [product.id]: true }))
-                  }
-                />
-              )}
-
-              <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold">₹{product.price}</p>
-                <Button onClick={() => addToCart(product)} size="sm">
-                  <ShoppingCart className="w-4 h-4 mr-1" /> Add
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Cart Summary */}
-      {cart.length > 0 && (
-        <div className="mt-12 max-w-xl mx-auto text-center border-t pt-6">
-          <h2 className="text-xl font-semibold mb-2">🛒 Cart Summary</h2>
-          <ul className="text-sm text-muted-foreground space-y-1">
-            {cart.map((item) => (
-              <li key={item.id}>
-                {item.name} × {item.quantity} – ₹{item.price * item.quantity}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-2 font-medium text-black">
-            Total: ₹{cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}
-          </p>
+        {PRODUCTS.map((product) => (
+  <Link key={product.id} href={`/product/${product.slug}`} className="group">
+    <Card className="flex flex-col justify-between cursor-pointer hover:shadow-md transition">
+      <CardHeader>
+        <CardTitle>{product.name}</CardTitle>
+        <CardDescription>
+          {product.description ?? "100% soy wax"}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {imageError[product.id] ? (
+          <div className="flex items-center justify-center h-[200px] bg-gray-100 rounded-xl text-gray-400 mb-4">
+            <Flame className="w-10 h-10" />
+          </div>
+        ) : (
+          <img
+            src={
+              product.image ||
+              `https://source.unsplash.com/400x300/?candle,${product.name}`
+            }
+            alt={product.name}
+            className="rounded-xl mb-4"
+            onError={() =>
+              setImageError((prev) => ({ ...prev, [product.id]: true }))
+            }
+          />
+        )}
+        <div className="flex items-center justify-between">
+          <p className="text-lg font-semibold">₹{product.price}</p>
+          <Button
+            onClick={(e) => {
+              e.preventDefault() // prevent Link click
+              addToCart(product)
+            }}
+            size="sm"
+          >
+            <ShoppingCart className="w-4 h-4 mr-1" /> Add
+          </Button>
         </div>
-      )}
+      </CardContent>
+    </Card>
+  </Link>
+))}
+      </div>
     </div>
   )
-}
+}   

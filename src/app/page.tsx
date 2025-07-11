@@ -1,5 +1,5 @@
 "use client"
-
+import NewsletterSignup from "@/components/NewsletterSignup"
 import {
   Card,
   CardContent,
@@ -95,6 +95,15 @@ export default function Home() {
     </Card>
   </div>
 </section>
+{/* Newsletter Signup Section */}
+<section className="text-center my-0">
+  <h2 className="text-3xl font-semibold mb-2">Stay in the Glow 🕯️</h2>
+  <p className="text-muted-foreground mb-6">
+    Subscribe for 10% off, new arrivals, and cozy inspiration.
+  </p>
+  <NewsletterSignup />
+</section>
+
 
 
 
@@ -122,19 +131,7 @@ export default function Home() {
 </section>
 
 
-      <section id="contact" className="py-16 px-4 max-w-xl mx-auto">
-  <h2 className="text-3xl font-semibold mb-4 text-center">Get in Touch</h2>
-  <form
-    action="https://formspree.io/f/xpwrvqyg" // ⬅️ replace with your actual ID
-    method="POST"
-    className="space-y-4"
-  >
-    <Input name="name" placeholder="Your Name" required />
-    <Input type="email" name="email" placeholder="Your Email" required />
-    <Textarea name="message" placeholder="Your Message" required />
-    <Button type="submit">Send Message</Button>
-  </form>
-</section>
+
 {/*
 
       <footer className="text-center text-sm text-muted-foreground py-6 border-t">
