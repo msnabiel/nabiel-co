@@ -32,13 +32,13 @@ export default function Banner() {
     🛍️ Shop Now
   </Button>
 </Link>
-<Link href="/brochure.pdf" target="_blank">
+<Link href="/Nabiel-Co-Brochure.pdf" target="_blank">
   <Button
     variant="outline"
     size="sm"
     className="text-sm text-black border-white hover:bg-white hover:text-black"
   >
-    📄 View Brochure
+    📄 Brochure
   </Button>
 </Link>
 

@@ -99,7 +99,7 @@ const handleAddToCart = (product: Product) => {
           Price: High to Low
         </Button>
         <Button
-          variant="ghost"
+          variant="destructive"
           size="sm"
           onClick={() => setSortOption(null)}
         >
