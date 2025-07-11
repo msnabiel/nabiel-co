@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import { sendConfirmationEmail } from "@/lib/sendConfirmationEmail"
-
+import { supabase } from "@/lib/supabase/client" // or wherever you initialized it
 type CartItem = {
   id: number
   name: string
@@ -70,10 +70,15 @@ export default function CheckoutPage() {
     description: "Candle Purchase",
     order_id: order.id,
     handler: function (response: any) {
-      toast.success("Payment successful!")
-      handleCheckout()
-      // TODO: Save order to Supabase or send confirmation email
-    },
+  const { razorpay_order_id, razorpay_payment_id } = response
+
+  toast.success("✅ Payment successful!")
+
+  handleCheckout({
+    razorpay_order_id,
+    razorpay_payment_id,
+  })
+},
     prefill: {
       name: form.name,
       email: form.email,
@@ -87,27 +92,58 @@ export default function CheckoutPage() {
 }
 
 
-const handleCheckout = async () => {
+const handleCheckout = async ({
+  razorpay_order_id,
+  razorpay_payment_id,
+}: {
+  razorpay_order_id: string
+  razorpay_payment_id: string
+}) => {
   if (Object.values(form).some((v) => v.trim() === "")) {
     toast.error("Please fill all fields")
     return
   }
 
   try {
+    const { error } = await supabase.from("orders").insert([
+  {
+    name: form.name,
+    email: form.email,
+    phone: form.phone,
+    address: form.address,
+    city: form.city,
+    zip: form.zip,
+    cart,
+    total,
+    razorpay_order_id,
+    payment_id: razorpay_payment_id,
+    status: "processing",
+  },
+])
+
+if (error) {
+  console.error("Supabase insert error:", error.message)
+  toast.error("❌ Failed to save order: " + error.message)
+  return
+}
+
     await sendConfirmationEmail({
       ...form,
       cart,
       total,
     })
 
-    toast.success("Order placed and email sent!")
+    toast.success("✅ Order placed & confirmation sent!")
+
     localStorage.removeItem("cart")
     setCart([])
     setForm({ name: "", email: "", address: "", city: "", zip: "", phone: "" })
   } catch (err) {
-    toast.error("Failed to send confirmation email.")
+    toast.error("Something went wrong during checkout.")
   }
 }
+const { phone, ...requiredFields } = form
+const formIsValid = Object.values(requiredFields).every((v) => v.trim() !== "")
 
 
 
@@ -186,23 +222,23 @@ const handleCheckout = async () => {
 
           <div className="grid gap-3 mt-4">
   {/* Razorpay dynamic buy button */}
-  <Button
-    disabled={cart.length === 0}
-    onClick={handleBuyNow}
-    className="w-full bg-amber-500 hover:bg-amber-600 text-white"
-  >
-    Buy Now with Razorpay
-  </Button>
+<Button
+  disabled={cart.length === 0 || !formIsValid}
+  onClick={handleBuyNow}
+  className="w-full bg-amber-500 hover:bg-amber-600 text-white"
+>
+  Buy Now with Razorpay
+</Button>
 
-  {/* Optional: COD fallback or email-only confirmation */}
-  <Button
-    disabled={cart.length === 0}
-    variant="outline"
-    onClick={handleBuyNow}
-    className="w-full"
-  >
-    Place Order (COD / Email Only)
-  </Button>
+<Button
+  disabled={cart.length === 0 || !formIsValid}
+  variant="outline"
+  onClick={handleBuyNow}
+  className="w-full"
+>
+  Place Order (COD / Email Only)
+</Button>
+
 </div>
 
         </div>

@@ -100,4 +100,13 @@ export const products: Product[] = [
     description: "Lavender Zen candle to help you unwind and breathe deeply.",
     images: ["/logo.png"],
   },
+  {
+    id: 11,
+    name: "dummy",
+    slug: "zen-dummy-lavender",
+    price: 1,
+    type: "Zen",
+    description: "Lavender Zen candle to help you unwind and breathe deeply.",
+    images: ["/logo.png"],
+  },
 ]
