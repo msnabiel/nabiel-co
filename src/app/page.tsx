@@ -105,13 +105,14 @@ export default function Home() {
   </div>
 </section>
 {/* Newsletter Signup Section */}
-<section className="text-center my-0">
+<section className="text-center my-0 px-4 sm:px-0">
   <h2 className="text-3xl font-semibold mb-2">Stay in the Glow 🕯️</h2>
   <p className="text-muted-foreground mb-6">
     Subscribe for 10% off, new arrivals, and cozy inspiration.
   </p>
   <NewsletterSignup />
-</section>  
+</section>
+
 
 
 

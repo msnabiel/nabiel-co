@@ -26,7 +26,7 @@ const handleSubmit = async () => {
 
 
   return (
-<section className="bg-amber-50 p-6 sm:p-6 px-4 sm:px-6 rounded-2xl shadow-md max-w-xl mx-auto my-12">
+<section className="bg-amber-50 rounded-2xl shadow-md max-w-xl mx-auto my-12 px-4 py-6 sm:px-6">
   <h2 className="text-2xl font-semibold mb-2 text-center">
     📧 Join Our Candle Club
   </h2>
@@ -41,6 +41,7 @@ const handleSubmit = async () => {
       value={email}
       onChange={(e) => setEmail(e.target.value)}
       required
+      className="w-full sm:max-w-xs"
     />
     <Button
       type="submit"
@@ -51,6 +52,7 @@ const handleSubmit = async () => {
     </Button>
   </form>
 </section>
+
 
   )
 }
