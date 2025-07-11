@@ -68,14 +68,6 @@ export default function RefundPolicyPage() {
         </p>
       </section>
 
-      <div className="mt-10 text-center text-xs text-muted-foreground">
-        <Link href="/terms" className="underline hover:text-black mr-4">
-          Terms of Service
-        </Link>
-        <Link href="/privacy-policy" className="underline hover:text-black">
-          Privacy Policy
-        </Link>
-      </div>
     </main>
   )
 }
