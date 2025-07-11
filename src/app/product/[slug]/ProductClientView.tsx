@@ -6,6 +6,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import { ShoppingCart, Heart, MessageCircle } from "lucide-react"
+import { useCart } from "@/lib/hooks/useCart"
 import {
   Select, SelectTrigger, SelectValue, SelectContent, SelectItem,
 } from "@/components/ui/select"
@@ -19,7 +20,8 @@ interface Props {
 }
 
 export default function ProductClientView({ product, related }: Props) {
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState("1")
+const { addToCart } = useCart()
 
   if (!product) {
     return (
@@ -77,28 +79,31 @@ export default function ProductClientView({ product, related }: Props) {
 
             <div>
               <label className="block text-sm mb-1 font-medium">Quantity</label>
-              <input
-                type="number"
-                min={1}
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                className="w-full px-3 py-2 border rounded-md"
-              />
+          <input
+  type="number"
+  min={1}
+  value={quantity}
+  onChange={(e) => setQuantity(e.target.value)}
+  className="w-full px-3 py-2 border rounded-md"
+/>
             </div>
           </div>
 
           {/* Buttons */}
           <div className="flex gap-3">
             <Button
-              className="flex gap-2 flex-1"
-              onClick={() => {
-                // Add to cart logic here
-                toast("Added to cart!")
-              }}
-            >
-              <ShoppingCart size={18} />
-              Add to Cart
-            </Button>
+  className="flex gap-2 flex-1"
+  onClick={() => {
+    const qty = Math.max(1, parseInt(quantity || "1", 10))
+    for (let i = 0; i < qty; i++) {
+      addToCart(product)
+    }
+  }}
+>
+  <ShoppingCart size={18} />
+  Add to Cart
+</Button>
+
             <Button variant="outline" className="flex gap-2">
               <Heart size={18} />
               Wishlist
@@ -173,10 +178,18 @@ export default function ProductClientView({ product, related }: Props) {
 
       {/* Sticky Mobile Add to Cart */}
       <div className="fixed bottom-0 inset-x-0 bg-white border-t p-3 sm:hidden flex gap-2 z-50">
-        <Button className="flex-1 flex items-center gap-2">
-          <ShoppingCart size={18} />
-          Add to Cart
-        </Button>
+                    <Button
+  className="flex gap-2 flex-1"
+  onClick={() => {
+    const qty = Math.max(1, parseInt(quantity || "1", 10))
+    for (let i = 0; i < qty; i++) {
+      addToCart(product)
+    }
+  }}
+>
+  <ShoppingCart size={18} />
+  Add to Cart
+</Button>
         <Button variant="outline" size="icon">
           <Heart size={18} />
         </Button>
