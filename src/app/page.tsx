@@ -29,7 +29,6 @@ export default function Home() {
   </Button>*/}
   <a
     href="/shop"
-    target="_blank"
     rel="noopener noreferrer"
   >
     <Button variant="default" className="text-lg px-6 py-2">
