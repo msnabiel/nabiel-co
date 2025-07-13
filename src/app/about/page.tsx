@@ -1,18 +1,18 @@
 "use client"
 
 import { Flame, Leaf, HandHeart } from "lucide-react"
-
+import { BUSINESS_NAME} from "@/lib/config"
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white text-neutral-800 px-6 py-16">
       <div className="max-w-3xl mx-auto text-center">
-        <h1 className="text-4xl font-bold mb-4">About Nabiel & Co.</h1>
+        <h1 className="text-4xl font-bold mb-4">About {BUSINESS_NAME}</h1>
         <p className="text-muted-foreground text-lg mb-10">
           Crafted with intention. Poured with care. Lit with love.
         </p>
 
         <p className="mb-6 text-sm leading-relaxed">
-          At <strong>Nabiel & Co.</strong>, we believe that a candle is more than just a scent — it’s a mood, a memory, a moment of peace. Our journey began with a simple desire: to create clean, beautiful candles that elevate everyday life.
+          At <strong>{BUSINESS_NAME}</strong>, we believe that a candle is more than just a scent — it’s a mood, a memory, a moment of peace. Our journey began with a simple desire: to create clean, beautiful candles that elevate everyday life.
         </p>
 
         <p className="mb-6 text-sm leading-relaxed">

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { BUSINESS_NAME, BUSINESS_MAIL } from "@/lib/config"
 
 export default function RefundPolicyPage() {
   return (
@@ -13,7 +14,7 @@ export default function RefundPolicyPage() {
 
       <section className="space-y-6 text-sm leading-6">
         <p>
-          At <strong>Nabiel & Co.</strong>, your satisfaction is our priority. If something isn’t right with your order, we’re here to help.
+          At <strong>{BUSINESS_NAME}</strong>, your satisfaction is our priority. If something isn’t right with your order, we’re here to help.
         </p>
 
         <h2 className="text-xl font-semibold">1. Returns</h2>
@@ -49,16 +50,16 @@ export default function RefundPolicyPage() {
         <h2 className="text-xl font-semibold">5. Cancellations</h2>
         <p>
           Orders can be cancelled within 2 hours of placing them. Please email us immediately at{" "}
-          <a href="mailto:info.nabielco@gmail.com" className="text-amber-600 hover:underline">
-            info.nabielco@gmail.com
+          <a href={`mailto:${BUSINESS_MAIL}`} className="text-amber-600 hover:underline">
+            {BUSINESS_MAIL}
           </a>.
         </p>
 
         <h2 className="text-xl font-semibold">6. Contact</h2>
         <p>
           For any return or refund request, reach out to us at{" "}
-          <a href="mailto:info.nabielco@gmail.com" className="text-amber-600 hover:underline">
-            info.nabielco@gmail.com
+          <a href={`mailto:${BUSINESS_MAIL}`} className="text-amber-600 hover:underline">
+            {BUSINESS_MAIL}
           </a>{" "}
           with your order number and details.
         </p>
@@ -67,7 +68,6 @@ export default function RefundPolicyPage() {
           Thank you for supporting handmade. We promise to make things right. 💛
         </p>
       </section>
-
     </main>
   )
 }

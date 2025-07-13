@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import { sendConfirmationEmail } from "@/lib/sendConfirmationEmail"
 import { supabase } from "@/lib/supabase/client" // or wherever you initialized it
+import { validCoupons } from "@/data/coupon"
 type CartItem = {
   id: number
   name: string
@@ -23,6 +24,8 @@ export default function CheckoutPage() {
     zip: "",
     phone: "", 
   })
+    const [coupon, setCoupon] = useState("")
+    const [discount, setDiscount] = useState(0)
 
   // Load cart
   useEffect(() => {
@@ -36,8 +39,10 @@ export default function CheckoutPage() {
       }
     }
   }, [])
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const total = Math.round(subtotal * (1 - discount))
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  //const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -47,12 +52,23 @@ export default function CheckoutPage() {
   // Show a toast notification
   toast("🚧 Not implemented yet!")
 }
+const handleApplyCoupon = () => {
+  const match = validCoupons.find(
+    (c) => c.code.toLowerCase() === coupon.trim().toLowerCase()
+  )
+
+  if (match) {
+    setDiscount(match.discount)
+    toast.success(`🎉 Coupon applied! ${match.discount * 100}% off`)
+  } else {
+    setDiscount(0)
+    toast.error("Invalid coupon code")
+  }
+}
+
 
   const handleBuyNow = async () => {
-  const totalAmount = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  )
+  const totalAmount = total // already includes discount
 
   const res = await fetch("/api/create-order", {
     method: "POST",
@@ -198,6 +214,24 @@ const formIsValid = Object.values(requiredFields).every((v) => v.trim() !== "")
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">Order Summary</h2>
           <div className="border rounded-xl p-4 space-y-2 bg-gray-50">
+            <div className="flex gap-2">
+  <Input
+    placeholder="Enter coupon code"
+    value={coupon}
+    onChange={(e) => setCoupon(e.target.value)}
+  />
+  <Button onClick={handleApplyCoupon} variant="secondary">
+    Apply
+  </Button>
+</div>
+
+{discount > 0 && (
+  <div className="flex justify-between text-sm text-green-600">
+    <span>Discount applied</span>
+    <span>-{Math.round(subtotal * discount)}</span>
+  </div>
+)}
+
             {cart.length === 0 ? (
               <p className="text-sm text-muted-foreground">Your cart is empty.</p>
             ) : (

@@ -21,11 +21,30 @@ export default function OrdersPage() {
   const [otp, setOtp] = useState("")
   const [order, setOrder] = useState<any | null>(null)
   const [loading, setLoading] = useState(false)
+const handleReset = () => {
+  setOrder(null)
+  setOtp("")
+  setOtpSent(false)
+}
 
   const sendOtp = async () => {
   if (!email.includes("@")) return toast.error("Enter valid email")
   setLoading(true)
 
+  // 🔍 Check if email exists in orders
+  const { data: existingOrder, error } = await supabase
+    .from("orders")
+    .select("id")
+    .eq("email", email)
+    .maybeSingle()
+
+  if (error || !existingOrder) {
+    toast.error("No orders found for this email.")
+    setLoading(false)
+    return
+  }
+
+  // ✅ Proceed to send OTP
   const res = await fetch("/api/send-otp", {
     method: "POST",
     body: JSON.stringify({ email }),
@@ -41,6 +60,7 @@ export default function OrdersPage() {
 
   setLoading(false)
 }
+
 
 
   const verifyOtp = async () => {
@@ -106,6 +126,8 @@ export default function OrdersPage() {
       )}
 
       {order && (
+        <>
+          <h2 className="text-xl font-semibold mb-4">Your Order Details</h2>
         <Card>
           <CardContent className="p-4 space-y-4">
             <div className="space-y-1">
@@ -147,6 +169,13 @@ export default function OrdersPage() {
             </div>
           </CardContent>
         </Card>
+            <div className="text-center mt-6">
+      <Button variant="outline" onClick={handleReset}>
+        🔍 Search Another Order
+      </Button>
+    </div>
+  </>
+
       )}
       </div>
     </main>

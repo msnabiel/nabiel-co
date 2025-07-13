@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+```
+# 🛍️ NabielCo — Full-Stack E-commerce Platform
 
-## Getting Started
+NabielCo is a modern, full-stack e-commerce platform built with Next.js and ShadCN UI. It offers a seamless shopping experience with integrated Razorpay payments and email order confirmations.
 
-First, run the development server:
+## 🌐 Live Demo
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🔗 [www.nabiel.co.in](https://www.nabiel.co.in)
+
+## 🚀 Features
+
+- 🔐 Razorpay Payment Gateway integration
+- 📧 Email confirmations using Nodemailer
+- 🛒 Add-to-cart with localStorage
+- 🖼️ Dynamic product pages with slug-based routing
+- 📦 Ready for admin features like order tracking (coming soon)
+- 🧩 Modular and scalable architecture
+- 📱 Fully responsive, mobile-first UI
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js (App Router), TypeScript, ShadCN UI
+- **Backend:** Supabase (PostgreSQL), API Routes
+- **Payments:** Razorpay
+- **Email:** Nodemailer (optionally with Resend)
+- **Deployment:** Vercel
+
+## 📂 Project Structure
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+src/
+├── app/               # Routes and pages
+├── components/        # UI components
+├── data/              # Product data
+├── lib/               # Utility functions
+├── styles/            # Global styles
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+````
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Getting Started
 
-## Learn More
+Clone the repository and install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+git clone https://github.com/msnabiel/nabielco.git
+cd nabielco
+npm install
+npm run dev
+````
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+> Make sure to set up `.env.local` with your Supabase, Razorpay, and email credentials.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📸 Screenshots
 
-## Deploy on Vercel
+| Home Page                     | Product Page                        | Cart Page                     |
+| ----------------------------- | ----------------------------------- | ----------------------------- |
+| ![Home](screenshots/home.png) | ![Product](screenshots/product.png) | ![Cart](screenshots/cart.png) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📬 Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with ❤️ by [Syed Nabiel Hasaan](https://www.linkedin.com/in/msnabiel/)
+📧 [msyeednabiel@gmail.com](mailto:msyeednabiel@gmail.com)
+🌐 [www.nabiel.co.in](https://www.nabiel.co.in)
+
+---
