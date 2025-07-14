@@ -38,7 +38,7 @@ export const products: Product[] = [
         sku: "AURA-ROSE",
         price: 299,
         description: "A romantic rose-scented Aura candle for calming spaces.",
-        images: ["/img1.jpg", "/img2.jpg"],
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "aura-jasmine",
@@ -47,7 +47,7 @@ export const products: Product[] = [
         sku: "AURA-JASMINE",
         price: 299,
         description: "Floral jasmine Aura candle to soothe your senses.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "aura-sandalwood",
@@ -56,7 +56,7 @@ export const products: Product[] = [
         sku: "AURA-SANDAL",
         price: 299,
         description: "Earthy sandalwood Aura candle for grounding energy.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "aura-lemongrass",
@@ -65,7 +65,7 @@ export const products: Product[] = [
         sku: "AURA-LEMONGRASS",
         price: 299,
         description: "Zesty lemongrass Aura candle to refresh your space.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "aura-lavender",
@@ -74,7 +74,7 @@ export const products: Product[] = [
         sku: "AURA-LAVENDER",
         price: 299,
         description: "Soothing lavender Aura candle to relax your mood.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"], 
       },
     ],
   },
@@ -92,7 +92,7 @@ export const products: Product[] = [
         sku: "ZEN-ROSE",
         price: 349,
         description: "Rose-scented Zen candle to calm the mind and elevate your mood.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "zen-jasmine",
@@ -101,7 +101,7 @@ export const products: Product[] = [
         sku: "ZEN-JASMINE",
         price: 349,
         description: "Delicate jasmine Zen candle for meditative spaces.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "zen-sandalwood",
@@ -110,7 +110,7 @@ export const products: Product[] = [
         sku: "ZEN-SANDAL",
         price: 349,
         description: "Warm sandalwood Zen candle for a deep sense of peace.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "zen-lemongrass",
@@ -119,7 +119,7 @@ export const products: Product[] = [
         sku: "ZEN-LEMONGRASS",
         price: 349,
         description: "Invigorating lemongrass Zen candle to awaken your senses.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
       {
         id: "zen-lavender",
@@ -128,7 +128,7 @@ export const products: Product[] = [
         sku: "ZEN-LAVENDER",
         price: 349,
         description: "Lavender Zen candle to help you unwind and breathe deeply.",
-        images: ["/img1.jpg", "/img2.jpg"], 
+        images: ["/logo.png", "/logo.png"],
       },
     ],
   },
