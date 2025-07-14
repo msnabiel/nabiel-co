@@ -5,6 +5,7 @@ import NavBar from "@/components/nav-bar";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner"
 import Script from "next/script" // For Razorpay integration
+import AnnouncementBar from "@/components/AnnouncementBar";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({
           src="https://checkout.razorpay.com/v1/checkout.js"
           strategy="afterInteractive"
         />
+        <AnnouncementBar />
         
         <NavBar />
         <Toaster />

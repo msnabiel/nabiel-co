@@ -39,7 +39,6 @@ export default function Home() {
 </section>
 
 
-<ProductGrid />
 
      {/* About Section */}
 <section className="py-20 px-6 text-center max-w-3xl mx-auto">

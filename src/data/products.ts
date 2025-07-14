@@ -1,112 +1,136 @@
 // src/data/products.ts
 
-export type Product = {
-  id: number
+export type Variant = {
+  id: string
   name: string
   slug: string
+  sku: string
   price: number
-  description?: string
-  images?: string[], // ✅ array of image URLs
-  type: "Aura" | "Zen" // ✅ added type 
+  description: string
+  images: string[]
 }
+export type FlattenedVariant = Variant & {
+  parentName: string
+  type: "Aura" | "Zen"
+}
+
+export type Product = {
+  id: number
+  name: string // e.g., "Aura Candle"
+  slug: string // e.g., "aura-candle"
+  type: "Aura" | "Zen"
+  defaultVariantId: string
+  variants: Variant[]
+}
+
 export const products: Product[] = [
   {
     id: 1,
-    name: "Aura Candle - Rose",
-    slug: "aura-candle-rose",
-    price: 299,
+    name: "Aura Candle",
+    slug: "aura-candle",
     type: "Aura",
-    description: "A romantic rose-scented Aura candle for calming spaces.",
-    images: ["/logo.png"],
+    defaultVariantId: "aura-rose",
+    variants: [
+      {
+        id: "aura-rose",
+        name: "Rose",
+        slug: "aura-candle-rose",
+        sku: "AURA-ROSE",
+        price: 299,
+        description: "A romantic rose-scented Aura candle for calming spaces.",
+        images: ["/img1.jpg", "/img2.jpg"],
+      },
+      {
+        id: "aura-jasmine",
+        name: "Jasmine",
+        slug: "aura-candle-jasmine",
+        sku: "AURA-JASMINE",
+        price: 299,
+        description: "Floral jasmine Aura candle to soothe your senses.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+      {
+        id: "aura-sandalwood",
+        name: "Sandalwood",
+        slug: "aura-candle-sandalwood",
+        sku: "AURA-SANDAL",
+        price: 299,
+        description: "Earthy sandalwood Aura candle for grounding energy.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+      {
+        id: "aura-lemongrass",
+        name: "Lemongrass",
+        slug: "aura-candle-lemongrass",
+        sku: "AURA-LEMONGRASS",
+        price: 299,
+        description: "Zesty lemongrass Aura candle to refresh your space.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+      {
+        id: "aura-lavender",
+        name: "Lavender",
+        slug: "aura-candle-lavender",
+        sku: "AURA-LAVENDER",
+        price: 299,
+        description: "Soothing lavender Aura candle to relax your mood.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+    ],
   },
   {
     id: 2,
-    name: "Aura Candle - Jasmine",
-    slug: "aura-candle-jasmine",
-    price: 299,
-    type: "Aura",
-    description: "Floral jasmine Aura candle to soothe your senses.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 3,
-    name: "Aura Candle - Sandalwood",
-    slug: "aura-candle-sandalwood",
-    price: 299,
-    type: "Aura",
-    description: "Earthy sandalwood Aura candle for grounding energy.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 4,
-    name: "Aura Candle - Lemongrass",
-    slug: "aura-candle-lemongrass",
-    price: 299,
-    type: "Aura",
-    description: "Zesty lemongrass Aura candle to refresh your space.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 5,
-    name: "Aura Candle - Lavender",
-    slug: "aura-candle-lavender",
-    price: 299,
-    type: "Aura",
-    description: "Soothing lavender Aura candle to relax your mood.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 6,
-    name: "Zen Candle - Rose",
-    slug: "zen-candle-rose",
-    price: 349,
+    name: "Zen Candle",
+    slug: "zen-candle",
     type: "Zen",
-    description: "Rose-scented Zen candle to calm the mind and elevate your mood.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 7,
-    name: "Zen Candle - Jasmine",
-    slug: "zen-candle-jasmine",
-    price: 349,
-    type: "Zen",
-    description: "Delicate jasmine Zen candle for meditative spaces.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 8,
-    name: "Zen Candle - Sandalwood",
-    slug: "zen-candle-sandalwood",
-    price: 349,
-    type: "Zen",
-    description: "Warm sandalwood Zen candle for a deep sense of peace.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 9,
-    name: "Zen Candle - Lemongrass",
-    slug: "zen-candle-lemongrass",
-    price: 349,
-    type: "Zen",
-    description: "Invigorating lemongrass Zen candle to awaken your senses.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 10,
-    name: "Zen Candle - Lavender",
-    slug: "zen-candle-lavender",
-    price: 349,
-    type: "Zen",
-    description: "Lavender Zen candle to help you unwind and breathe deeply.",
-    images: ["/logo.png"],
-  },
-  {
-    id: 11,
-    name: "dummy",
-    slug: "zen-dummy-lavender",
-    price: 1,
-    type: "Zen",
-    description: "Lavender Zen candle to help you unwind and breathe deeply.",
-    images: ["/logo.png"],
+    defaultVariantId: "zen-rose",
+    variants: [
+      {
+        id: "zen-rose",
+        name: "Rose",
+        slug: "zen-candle-rose",
+        sku: "ZEN-ROSE",
+        price: 349,
+        description: "Rose-scented Zen candle to calm the mind and elevate your mood.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+      {
+        id: "zen-jasmine",
+        name: "Jasmine",
+        slug: "zen-candle-jasmine",
+        sku: "ZEN-JASMINE",
+        price: 349,
+        description: "Delicate jasmine Zen candle for meditative spaces.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+      {
+        id: "zen-sandalwood",
+        name: "Sandalwood",
+        slug: "zen-candle-sandalwood",
+        sku: "ZEN-SANDAL",
+        price: 349,
+        description: "Warm sandalwood Zen candle for a deep sense of peace.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+      {
+        id: "zen-lemongrass",
+        name: "Lemongrass",
+        slug: "zen-candle-lemongrass",
+        sku: "ZEN-LEMONGRASS",
+        price: 349,
+        description: "Invigorating lemongrass Zen candle to awaken your senses.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+      {
+        id: "zen-lavender",
+        name: "Lavender",
+        slug: "zen-candle-lavender",
+        sku: "ZEN-LAVENDER",
+        price: 349,
+        description: "Lavender Zen candle to help you unwind and breathe deeply.",
+        images: ["/img1.jpg", "/img2.jpg"], 
+      },
+    ],
   },
 ]
+
