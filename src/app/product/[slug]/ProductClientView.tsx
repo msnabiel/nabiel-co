@@ -23,6 +23,8 @@ export default function ProductClientView({ product, related }: Props) {
     
   const [quantity, setQuantity] = useState("1")
 const { addToCart } = useCart()
+const [selectedImage, setSelectedImage] = useState(product.images?.[0])
+
 
 
   if (!product) {
@@ -43,28 +45,51 @@ const { addToCart } = useCart()
     localStorage.setItem(key, JSON.stringify(updated));
   }, [product?.slug]);
 
-
   return (
     <div className="max-w-6xl mx-auto p-3 sm:p-6">
       <div className="grid md:grid-cols-2 gap-6 md:gap-10">
-        {/* Image Gallery */}
-        <div className="space-y-3">
-          {product.images?.map((img: string, i: number) => (
-            <Image
-              key={i}
-              src={img}
-              alt={product.name}
-              width={600}
-              height={600}
-              className="rounded-lg border w-full max-w-[500px] mx-auto"
-            />
-          ))}
-        </div>
+        {/* Image Gallery with Thumbnail Selection */}
+
+<div className="space-y-4">
+  {/* Primary Image */}
+  <div className="relative w-full max-w-[500px] mx-auto aspect-square border rounded-lg overflow-hidden">
+    <Image
+      src={selectedImage}
+      alt={product.name}
+      fill
+      className="object-cover"
+    />
+  </div>
+
+  {/* Thumbnails */}
+  <div className="flex gap-2 justify-center flex-wrap">
+    {product.images?.map((img: string, i: number) => (
+      <button
+        key={i}
+        onClick={() => setSelectedImage(img)}
+        className={`relative w-16 h-16 border rounded-md overflow-hidden ${
+          selectedImage === img ? "ring-2 ring-black" : ""
+        }`}
+      >
+        <Image
+          src={img}
+          alt={`Thumbnail ${i + 1}`}
+          fill
+          className="object-cover"
+        />
+      </button>
+    ))}
+  </div>
+</div>
+
 
         {/* Product Info */}
         <div className="space-y-4">
           <div className="space-y-2">
-            <h1 className="text-2xl md:text-3xl font-bold">{product.name}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">
+  {product.parentName} – {product.name}
+</h1>
+
             <div className="flex items-center gap-2 text-sm text-yellow-500">
               {"★".repeat(4)}{"☆"}{" "}
               <span className="text-muted-foreground ml-1">(142 reviews)</span>
@@ -181,7 +206,10 @@ const { addToCart } = useCart()
                     className="object-cover rounded-md"
                   />
                 </div>
-                <p className="mt-2 text-xs font-medium text-center line-clamp-2">{p.name}</p>
+                <p className="mt-2 text-xs font-medium text-center line-clamp-2">
+  {p.parentName} – {p.name}
+</p>
+
                 <p className="text-xs text-muted-foreground text-center">₹{p.price}</p>
               </Link>
             ))}
