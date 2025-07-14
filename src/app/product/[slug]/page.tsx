@@ -3,11 +3,11 @@ import ProductClientView from "./ProductClientView"
 import type { FlattenedVariant } from "@/data/products"
 
 interface PageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
-export default function ProductPage({ params }: PageProps) {
-  const { slug } = params
+export default async function ProductPage({ params }: PageProps) {
+  const { slug } = await params
 
   // Flatten variants to search by slug
   const allVariants: FlattenedVariant[] = products.flatMap((product) =>
