@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -13,15 +13,17 @@ import {
 import {
   Accordion, AccordionItem, AccordionTrigger, AccordionContent,
 } from "@/components/ui/accordion"
-
+import RecentlyViewed from "@/components/RecentlyViewed"
 interface Props {
   product: any
   related: any[]
 }
 
 export default function ProductClientView({ product, related }: Props) {
+    
   const [quantity, setQuantity] = useState("1")
 const { addToCart } = useCart()
+
 
   if (!product) {
     return (
@@ -31,6 +33,16 @@ const { addToCart } = useCart()
       </div>
     )
   }
+  useEffect(() => {
+    if (!product) return;
+
+    const key = "recentlyViewed";
+    const stored = JSON.parse(localStorage.getItem(key) || "[]");
+
+    const updated = [product.slug, ...stored.filter((s: string) => s !== product.slug)].slice(0, 5);
+    localStorage.setItem(key, JSON.stringify(updated));
+  }, [product?.slug]);
+
 
   return (
     <div className="max-w-6xl mx-auto p-3 sm:p-6">
@@ -194,7 +206,10 @@ const { addToCart } = useCart()
         <Button variant="outline" size="icon">
           <Heart size={18} />
         </Button>
+              {/* Recently Viewed */}
       </div>
+      
     </div>
+    
   )
 }

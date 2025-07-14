@@ -17,6 +17,12 @@ export default function CartPage() {
   const [cart, setCart] = useState<CartItem[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
   const router = useRouter()
+  const FREE_SHIPPING_THRESHOLD = 500;
+
+const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+const remaining = Math.max(FREE_SHIPPING_THRESHOLD - cartTotal, 0);
+const progress = Math.min((cartTotal / FREE_SHIPPING_THRESHOLD) * 100, 100);
+
 
   // Load cart from localStorage
   useEffect(() => {
@@ -91,6 +97,7 @@ const updateQuantity = (id: number, quantity: number) => {
                   ₹{item.price} × {item.quantity}
                 </p>
               </div>
+              
 
               {/* Quantity Input */}
 <Input
@@ -127,6 +134,22 @@ const updateQuantity = (id: number, quantity: number) => {
               </Button>
             </div>
           ))}
+          {cart.length > 0 && (
+  <div className="my-4 p-4 border rounded-xl bg-muted/50">
+    <p className="text-sm font-medium">
+      {remaining === 0
+        ? "🎉 You’ve unlocked free shipping!"
+        : `🚚 You're ₹${remaining} away from free shipping!`}
+    </p>
+    <div className="mt-2 w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+      <div
+        className="h-full bg-green-500 transition-all"
+        style={{ width: `${progress}%` }}
+      />
+    </div>
+  </div>
+)}
+
 
           <div className="text-right text-lg font-medium mt-4">
             Total: ₹{total}
