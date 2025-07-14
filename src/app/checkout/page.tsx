@@ -7,6 +7,7 @@ import { toast } from "sonner"
 import { sendConfirmationEmail } from "@/lib/sendConfirmationEmail"
 import { supabase } from "@/lib/supabase/client" // or wherever you initialized it
 import { validCoupons } from "@/data/coupon"
+import { BUSINESS_NAME } from "@/lib/config"
 type CartItem = {
   id: number
   name: string
@@ -82,7 +83,7 @@ const handleApplyCoupon = () => {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // public key
     amount: order.amount,
     currency: order.currency,
-    name: "Nabiel & Co.",
+    name: BUSINESS_NAME,
     description: "Candle Purchase",
     order_id: order.id,
     handler: function (response: any) {

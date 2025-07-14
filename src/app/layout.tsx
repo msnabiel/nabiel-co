@@ -9,6 +9,11 @@ const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
+import {
+  BUSINESS_NAME,
+  BUSINESS_TAGLINE,
+  BUSINESS_FAVICON,
+} from "@/lib/config"
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -16,12 +21,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nabiel & Co",
-  description: "Scented candles crafted with care",
+  title: BUSINESS_NAME,
+  description: BUSINESS_TAGLINE,
   icons: {
-    icon: "/favicon.png",
+    icon: BUSINESS_FAVICON,
   },
-};
+}
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation"
 import { ShoppingCart, Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import clsx from "clsx"
+import { BUSINESS_NAME } from "@/lib/config"
 
 export default function NavBar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -39,7 +40,7 @@ export default function NavBar() {
           href="/"
           className="text-xl font-bold tracking-tight text-amber-600"
         >
-          Nabiel & Co.
+            {BUSINESS_NAME}
         </Link>
 
         {/* Desktop Nav */}

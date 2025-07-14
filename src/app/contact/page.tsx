@@ -6,6 +6,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { Phone, Mail, Instagram } from "lucide-react"
 import { toast } from "sonner"
+import {
+  BUSINESS_PHONE,
+  BUSINESS_MAIL,
+  BUSINESS_INSTAGRAM,
+  BUSINESS_INSTAGRAM_HANDLE,
+  FORMSPREE_ENDPOINT,
+} from "@/lib/config"
 
 export default function ContactPage() {
   const [form, setForm] = useState({
@@ -25,7 +32,7 @@ export default function ContactPage() {
     formData.append("message", form.message)
 
     try {
-      const res = await fetch("https://formspree.io/f/xpwrvqyg", {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { Accept: "application/json" },
         body: formData,
@@ -85,21 +92,21 @@ export default function ContactPage() {
       <div className="mt-16 text-center space-y-2 text-sm text-muted-foreground">
         <div className="flex items-center justify-center gap-2">
           <Phone className="w-4 h-4" />
-          <span>+91 63832 38742</span>
+          <span>{BUSINESS_PHONE}</span>
         </div>
         <div className="flex items-center justify-center gap-2">
           <Mail className="w-4 h-4" />
-          <span>info.nabielco@gmail.com</span>
+          <span>{BUSINESS_MAIL}</span>
         </div>
         <div className="flex items-center justify-center gap-2">
           <Instagram className="w-4 h-4" />
           <a
-            href="https://instagram.com/nabielco"
+            href={BUSINESS_INSTAGRAM}
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-black"
           >
-            @nabielco
+            {BUSINESS_INSTAGRAM_HANDLE}
           </a>
         </div>
       </div>

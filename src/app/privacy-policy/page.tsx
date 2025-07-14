@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { BUSINESS_NAME, BUSINESS_MAIL } from "@/lib/config"
 
 export default function PrivacyPolicyPage() {
   return (
@@ -13,7 +14,7 @@ export default function PrivacyPolicyPage() {
 
       <section className="space-y-6 text-sm leading-6">
         <p>
-          At <strong>Nabiel & Co.</strong>, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or use our services.
+          At <strong>{BUSINESS_NAME}</strong>, we take your privacy seriously. This Privacy Policy explains how we collect, use, and protect your personal information when you visit our website or use our services.
         </p>
 
         <h2 className="text-xl font-semibold">1. Information We Collect</h2>
@@ -47,7 +48,10 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-xl font-semibold">6. Your Rights</h2>
         <p>
-          You have the right to access, update, or delete your personal information. To do so, please contact us at <a href="mailto:info.nabielco@gmail.com" className="text-amber-600 hover:underline">info.nabielco@gmail.com</a>.
+          You have the right to access, update, or delete your personal information. To do so, please contact us at{" "}
+          <a href={`mailto:${BUSINESS_MAIL}`} className="text-amber-600 hover:underline">
+            {BUSINESS_MAIL}
+          </a>.
         </p>
 
         <h2 className="text-xl font-semibold">7. Changes to This Policy</h2>
@@ -57,7 +61,10 @@ export default function PrivacyPolicyPage() {
 
         <h2 className="text-xl font-semibold">8. Contact Us</h2>
         <p>
-          If you have any questions about this Privacy Policy, feel free to <Link href="/contact" className="text-amber-600 hover:underline">contact us</Link>.
+          If you have any questions about this Privacy Policy, feel free to{" "}
+          <Link href="/contact" className="text-amber-600 hover:underline">
+            contact us
+          </Link>.
         </p>
       </section>
     </main>

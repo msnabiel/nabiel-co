@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { BUSINESS_NAME, BUSINESS_MAIL } from "@/lib/config"
 
 export default function TermsPage() {
   return (
@@ -13,7 +14,7 @@ export default function TermsPage() {
 
       <section className="space-y-6 text-sm leading-6">
         <p>
-          Welcome to <strong>Nabiel & Co.</strong>! These Terms and Conditions govern your use of our website and services. By accessing or purchasing from our site, you agree to these terms.
+          Welcome to <strong>{BUSINESS_NAME}</strong>! These Terms and Conditions govern your use of our website and services. By accessing or purchasing from our site, you agree to these terms.
         </p>
 
         <h2 className="text-xl font-semibold">1. Use of Our Website</h2>
@@ -43,7 +44,7 @@ export default function TermsPage() {
 
         <h2 className="text-xl font-semibold">6. Intellectual Property</h2>
         <p>
-          All content on this website, including logos, images, and text, is the property of Nabiel & Co. You may not reproduce or use it without written permission.
+          All content on this website, including logos, images, and text, is the property of {BUSINESS_NAME}. You may not reproduce or use it without written permission.
         </p>
 
         <h2 className="text-xl font-semibold">7. Limitation of Liability</h2>
@@ -63,7 +64,10 @@ export default function TermsPage() {
 
         <h2 className="text-xl font-semibold">10. Contact Us</h2>
         <p>
-          For any questions or concerns, please contact us at <a href="mailto:info.nabielco@gmail.com" className="text-amber-600 hover:underline">info.nabielco@gmail.com</a>.
+          For any questions or concerns, please contact us at{" "}
+          <a href={`mailto:${BUSINESS_MAIL}`} className="text-amber-600 hover:underline">
+            {BUSINESS_MAIL}
+          </a>.
         </p>
       </section>
     </main>
