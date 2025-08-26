@@ -80,7 +80,7 @@ const handleApplyCoupon = () => {
   const order = await res.json()
 
   const options = {
-    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // public key
+    key: process.env.RAZORPAY_KEY_ID, // public key
     amount: order.amount,
     currency: order.currency,
     name: BUSINESS_NAME,
